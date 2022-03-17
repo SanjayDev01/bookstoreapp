@@ -1,3 +1,4 @@
+import 'package:bookstoreapp/components/horizontal_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
@@ -27,10 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
+    HorizontalListView(),
     Text(
       'Book Stores',
       style: optionStyle,
