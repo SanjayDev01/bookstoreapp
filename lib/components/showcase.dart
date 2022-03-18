@@ -20,8 +20,8 @@ class ShowCase extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Container(
-            width: 250,
-            height: 350,
+            width: 150,
+            height: 250,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),

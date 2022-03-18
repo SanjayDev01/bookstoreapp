@@ -18,12 +18,53 @@ class HorizontalListView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: 350,
+              height: 250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: booklist.books.length,
                 itemBuilder: (BuildContext context, int i) {
-                  if (booklist.books[i].franchise) {
+                  // ignore: unnecessary_null_comparison
+                  if (booklist.books[i].cover != null) {
+                    return ShowCase(
+                      wideImage: booklist.books[i].cover,
+                      bookObject: booklist.books[i],
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: booklist.books.length,
+                itemBuilder: (BuildContext context, int i) {
+                  if (booklist.books[i].cover != null) {
+                    return ShowCase(
+                      wideImage: booklist.books[i].cover,
+                      bookObject: booklist.books[i],
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: booklist.books.length,
+                itemBuilder: (BuildContext context, int i) {
+                  if (booklist.books[i].franchise != null) {
                     return ShowCase(
                       wideImage: booklist.books[i].cover,
                       bookObject: booklist.books[i],

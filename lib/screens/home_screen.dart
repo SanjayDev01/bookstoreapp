@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ShapeBorder? bottomBarShape = const RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(15)),
   );
-  SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
+  SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.pinned;
   EdgeInsets padding = const EdgeInsets.all(12);
 
   int _selectedItemPosition = 0;
@@ -60,11 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: _widgetOptions.elementAt(_selectedItemPosition),
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
-        // height: 80,
+        height: 65,
         behaviour: snakeBarStyle,
         snakeShape: snakeShape,
-        shape: bottomBarShape,
-        padding: padding,
+        // shape: bottomBarShape,
+        // padding: padding,
         backgroundColor: Colors.black12,
 
         ///configuration for SnakeNavigationBar.color

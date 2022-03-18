@@ -1,4 +1,5 @@
 import 'package:bookstoreapp/screens/home_screen.dart';
+import 'package:bookstoreapp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: "Book Store",
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }
