@@ -1,6 +1,7 @@
 import 'package:bookstoreapp/auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen.dart';
 
@@ -16,9 +17,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    checkUser();
+  }
+
+  checkUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const SignIn()));
+      if (prefs.getString('user_id') != null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const SignIn()));
+      }
     });
   }
 

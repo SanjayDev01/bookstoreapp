@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_snake_navigationbar: ^0.6.1
   lottie: ^1.2.2
+  google_sign_in: ^5.2.4
+  firebase_auth: ^3.3.11
+  firebase_core: ^1.13.1
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
