@@ -1,6 +1,7 @@
 import 'package:bookstoreapp/components/horizontal_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:share/share.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,12 +48,38 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
+  _onShare(BuildContext context) async {
+    // A builder is used to retrieve the context immediately
+    // surrounding the ElevatedButton.
+    //
+    // The context's `findRenderObject` returns the first
+    // RenderObject in its descendent tree when it's not
+    // a RenderObjectWidget. The ElevatedButton's RenderObject
+    // has its position and size after it's built.
+    final RenderBox box = context.findRenderObject() as RenderBox;
+
+    await Share.share("check out my website https://example.com",
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book Store'),
         backgroundColor: Colors.blue.shade800,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.mic),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              _onShare(context);
+            },
+          ),
+        ],
       ),
       drawer: const Drawer(),
       backgroundColor: Colors.white,
