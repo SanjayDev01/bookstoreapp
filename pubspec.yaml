@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^1.13.1
   shared_preferences: ^2.0.13
   share: ^2.0.4
+  speech_to_text: ^5.4.3
 
 dev_dependencies:
   flutter_test:

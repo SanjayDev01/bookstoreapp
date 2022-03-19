@@ -1,4 +1,5 @@
 import 'package:bookstoreapp/components/horizontal_list.dart';
+import 'package:bookstoreapp/screens/voice_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:share/share.dart';
@@ -71,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.mic),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const VoiceSearch();
+              }));
+            },
           ),
           IconButton(
             icon: const Icon(Icons.share),
