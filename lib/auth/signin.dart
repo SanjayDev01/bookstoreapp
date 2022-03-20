@@ -1,9 +1,12 @@
+import 'package:bookstoreapp/models/user.dart';
 import 'package:bookstoreapp/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+String userId = "";
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  late final User currentUser;
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<void> signin(BuildContext context) async {
@@ -29,12 +34,17 @@ class _SignInState extends State<SignIn> {
       // Getting users credential
       UserCredential result = await auth.signInWithCredential(authCredential);
       User user = result.user!;
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       print(user);
 
       if (result != null) {
         prefs.setString('user_id', user.uid);
+
+        setState(() {
+          userId = user.uid;
+        });
 
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const HomeScreen()));

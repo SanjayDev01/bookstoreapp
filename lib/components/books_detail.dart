@@ -1,6 +1,13 @@
 // ignore_for_file: no_logic_in_create_state, avoid_unnecessary_containers
 
+import 'dart:convert';
+
+import 'package:bookstoreapp/auth/signin.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class BooksDetails extends StatefulWidget {
   final String title;
@@ -31,13 +38,87 @@ class _BooksDetailsState extends State<BooksDetails> {
   final double price;
   bool isFavorite = false;
   bool addToCart = false;
+  var uuid = const Uuid().v4();
 
+  // Create a CollectionReference called users that references the firestore collection
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   _BooksDetailsState({
     required this.title,
     required this.author,
     required this.cover,
     required this.price,
   });
+
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
+  //get userid from local storage
+  getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString("user_id")!;
+    print(userId);
+  }
+
+//to add book to wishlist
+  addFav() async {
+    //Call the user's CollectionReference to add a new document
+    await users
+        .doc(userId)
+        .collection("fav books")
+        .doc(uuid)
+        .set({
+          "title": title,
+          "author": author,
+          "cover": cover,
+          "price": price.toString(),
+        })
+        .then((value) => print("User's Favourite Added"))
+        .catchError((error) => print("Failed to add User's Favourite: $error"));
+  }
+
+//to delete the whishlist book
+  removeFav() async {
+    await users
+        .doc(userId)
+        .collection("fav books")
+        .doc(uuid)
+        .delete()
+        .then((value) => print("User Fav deleted"))
+        .catchError(
+            (error) => print("Failed to delete User's Favourite: $error"));
+  }
+
+  // add book to the cart
+  addCart() async {
+    await users
+        .doc(userId)
+        .collection("cart")
+        .doc(uuid)
+        .set({
+          "title": title,
+          "author": author,
+          "cover": cover,
+          "price": price.toString(),
+        })
+        .then((value) => print("book added to the car"))
+        .catchError((error) => print("Failed to add book to cart: $error"));
+  }
+
+// remove item from the cart
+  removeCart() async {
+    await users
+        .doc(userId)
+        .collection("cart")
+        .doc(uuid)
+        .delete()
+        .then((value) => print("User book deleted from cart"))
+        .catchError(
+            (error) => print("Failed to delete book from cart : $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -106,6 +187,7 @@ class _BooksDetailsState extends State<BooksDetails> {
                                     setState(() {
                                       isFavorite = !isFavorite;
                                     });
+                                    removeFav();
                                   },
                                   icon: const Icon(
                                     Icons.favorite,
@@ -118,6 +200,7 @@ class _BooksDetailsState extends State<BooksDetails> {
                                     setState(() {
                                       isFavorite = true;
                                     });
+                                    addFav();
                                   },
                                   icon: const Icon(
                                     Icons.favorite_border,
@@ -141,6 +224,7 @@ class _BooksDetailsState extends State<BooksDetails> {
                                     setState(() {
                                       addToCart = !addToCart;
                                     });
+                                    removeCart();
                                   },
                                   icon: const Icon(
                                     Icons.shopping_cart_outlined,
@@ -153,6 +237,7 @@ class _BooksDetailsState extends State<BooksDetails> {
                                     setState(() {
                                       addToCart = true;
                                     });
+                                    addCart();
                                   },
                                   icon: const Icon(
                                     Icons.shopping_cart_outlined,
