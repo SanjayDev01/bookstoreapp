@@ -87,7 +87,7 @@ class _CartListState extends State<CartList> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.80,
+                height: MediaQuery.of(context).size.height * 0.75,
                 padding: EdgeInsets.only(left: 10, right: 10),
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,

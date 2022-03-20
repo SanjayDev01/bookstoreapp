@@ -8,10 +8,13 @@ import 'package:bookstoreapp/components/homepage.dart';
 import 'package:bookstoreapp/components/wishlist.dart';
 import 'package:bookstoreapp/models/books.dart';
 import 'package:bookstoreapp/screens/cart_screen.dart';
+import 'package:bookstoreapp/screens/splash_screen.dart';
 import 'package:bookstoreapp/screens/voice_search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,6 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await Share.share("check bookstore app https://bookstore.com",
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
+  signout() async {
+    await FirebaseAuth.instance.signOut();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => SplashScreen()));
   }
 
   @override
@@ -161,6 +172,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return const SafeArea(child: CartList());
                 }));
+              },
+            ),
+            ListTile(
+              title: const Text('Sign out'),
+              leading: Icon(Icons.logout),
+              onTap: () {
+                signout();
+                // Update the state of the app.
+                // ...
               },
             ),
           ],
