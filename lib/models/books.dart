@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 BookList booklist = BookList(books: [
@@ -227,4 +228,21 @@ class Book {
     required this.wideImage,
     required this.rating,
   });
+
+  factory Book.fromDocument(DocumentSnapshot doc) {
+    return Book(
+      title: doc['title'],
+      author: doc['author'],
+      cover: doc['cover'],
+      price: double.parse(doc['price']),
+      genre: "",
+      lanugage: "",
+      authorImg: "",
+      franchise: false,
+      summary: "",
+      wideImage: "",
+      age: "",
+      rating: 0.0,
+    );
+  }
 }

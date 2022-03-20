@@ -3,6 +3,7 @@
 import 'package:bookstoreapp/components/book_stores.dart';
 import 'package:bookstoreapp/components/books_detail.dart';
 import 'package:bookstoreapp/components/homepage.dart';
+import 'package:bookstoreapp/components/wishlist.dart';
 import 'package:bookstoreapp/models/books.dart';
 import 'package:bookstoreapp/screens/voice_search.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Categories',
       style: optionStyle,
     ),
-    const Text(
-      'Favorites',
-      style: optionStyle,
-    ),
+    const WishList(),
   ];
 
   _onShare(BuildContext context) async {
@@ -61,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // has its position and size after it's built.
     final RenderBox box = context.findRenderObject() as RenderBox;
 
-    await Share.share("check out my website https://example.com",
+    await Share.share("check bookstore app https://example.com",
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 

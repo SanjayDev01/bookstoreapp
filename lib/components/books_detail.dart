@@ -14,10 +14,13 @@ class BooksDetails extends StatefulWidget {
   final String author;
   final String cover;
   final double price;
+  final bool isFav;
+
   const BooksDetails({
     Key? key,
     required this.title,
     required this.author,
+    required this.isFav,
     required this.cover,
     required this.price,
   }) : super(key: key);
@@ -28,6 +31,7 @@ class BooksDetails extends StatefulWidget {
         title: title,
         cover: cover,
         price: price,
+        isFav: isFav,
       );
 }
 
@@ -38,6 +42,7 @@ class _BooksDetailsState extends State<BooksDetails> {
   final double price;
   bool isFavorite = false;
   bool addToCart = false;
+  final bool isFav;
   var uuid = const Uuid().v4();
 
   // Create a CollectionReference called users that references the firestore collection
@@ -47,12 +52,14 @@ class _BooksDetailsState extends State<BooksDetails> {
     required this.author,
     required this.cover,
     required this.price,
+    required this.isFav,
   });
 
   @override
   void initState() {
     super.initState();
     getUserId();
+    checkFav();
   }
 
   //get userid from local storage
@@ -89,6 +96,8 @@ class _BooksDetailsState extends State<BooksDetails> {
         .then((value) => print("User Fav deleted"))
         .catchError(
             (error) => print("Failed to delete User's Favourite: $error"));
+
+    setState(() {});
   }
 
   // add book to the cart
@@ -117,13 +126,24 @@ class _BooksDetailsState extends State<BooksDetails> {
         .then((value) => print("User book deleted from cart"))
         .catchError(
             (error) => print("Failed to delete book from cart : $error"));
+    setState(() {});
+  }
+
+  checkFav() {
+    if (isFav) {
+      setState(() {
+        isFavorite = true;
+      });
+    } else {
+      isFavorite = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.35,
       child: Card(
         child: Row(
           children: [

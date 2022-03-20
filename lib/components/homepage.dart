@@ -74,10 +74,12 @@ class HomePage extends StatelessWidget {
                   // ignore: unnecessary_null_comparison
                   if (booklist.books.isNotEmpty) {
                     return BooksDetails(
-                        title: booklist.books[i].title,
-                        author: booklist.books[i].author,
-                        cover: booklist.books[i].cover,
-                        price: booklist.books[i].price);
+                      title: booklist.books[i].title,
+                      author: booklist.books[i].author,
+                      cover: booklist.books[i].cover,
+                      price: booklist.books[i].price,
+                      isFav: false,
+                    );
                   } else {
                     return Container();
                   }
