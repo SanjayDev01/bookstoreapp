@@ -79,6 +79,7 @@ class HomePage extends StatelessWidget {
                       cover: booklist.books[i].cover,
                       price: booklist.books[i].price,
                       isFav: false,
+                      isCart: false,
                     );
                   } else {
                     return Container();

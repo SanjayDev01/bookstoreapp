@@ -73,6 +73,7 @@ class _WishListState extends State<WishList> {
                     cover: bookslist[i].cover,
                     price: bookslist[i].price,
                     isFav: true,
+                    isCart: false,
                   );
                 } else {
                   return Container();

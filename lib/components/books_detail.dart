@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:bookstoreapp/auth/signin.dart';
+import 'package:bookstoreapp/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,6 +16,7 @@ class BooksDetails extends StatefulWidget {
   final String cover;
   final double price;
   final bool isFav;
+  final bool isCart;
 
   const BooksDetails({
     Key? key,
@@ -23,6 +25,7 @@ class BooksDetails extends StatefulWidget {
     required this.isFav,
     required this.cover,
     required this.price,
+    required this.isCart,
   }) : super(key: key);
 
   @override
@@ -32,6 +35,7 @@ class BooksDetails extends StatefulWidget {
         cover: cover,
         price: price,
         isFav: isFav,
+        isCart: isCart,
       );
 }
 
@@ -43,6 +47,8 @@ class _BooksDetailsState extends State<BooksDetails> {
   bool isFavorite = false;
   bool addToCart = false;
   final bool isFav;
+  final bool isCart;
+
   var uuid = const Uuid().v4();
 
   // Create a CollectionReference called users that references the firestore collection
@@ -53,6 +59,7 @@ class _BooksDetailsState extends State<BooksDetails> {
     required this.cover,
     required this.price,
     required this.isFav,
+    required this.isCart,
   });
 
   @override
@@ -60,6 +67,7 @@ class _BooksDetailsState extends State<BooksDetails> {
     super.initState();
     getUserId();
     checkFav();
+    checkCart();
   }
 
   //get userid from local storage
@@ -136,6 +144,16 @@ class _BooksDetailsState extends State<BooksDetails> {
       });
     } else {
       isFavorite = false;
+    }
+  }
+
+  checkCart() {
+    if (isCart) {
+      setState(() {
+        addToCart = true;
+      });
+    } else {
+      addToCart = false;
     }
   }
 
@@ -269,7 +287,12 @@ class _BooksDetailsState extends State<BooksDetails> {
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartList()));
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
                             (Set<MaterialState> states) {
