@@ -286,6 +286,9 @@ class _BooksDetailsState extends State<BooksDetails> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.push(

@@ -39,9 +39,7 @@
     </application>
   
 <queries>
-<intent>
-        <action android:name="android.speech.RecognitionService" />
-    </intent>
+
   <!-- If your app opens https URLs -->
   <intent>
     <action android:name="android.intent.action.VIEW" />
@@ -62,5 +60,9 @@
     <action android:name="android.intent.action.SEND" />
     <data android:mimeType="*/*" />
   </intent>
+  <intent>
+        <action android:name="android.speech.RecognitionService" />
+    </intent>
 </queries>
+ 
 </manifest>

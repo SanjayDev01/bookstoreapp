@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VoiceSearch extends StatefulWidget {
   const VoiceSearch({Key? key}) : super(key: key);
@@ -10,8 +10,8 @@ class VoiceSearch extends StatefulWidget {
 }
 
 class _VoiceSearchState extends State<VoiceSearch> {
-  SpeechToText _speechToText = SpeechToText();
-  bool _speechEnabled = false;
+  late stt.SpeechToText _speechToText;
+  bool _isListening = false;
   String _lastWords = '';
 
   @override
@@ -22,8 +22,29 @@ class _VoiceSearchState extends State<VoiceSearch> {
 
   /// This has to happen only once per app
   void _initSpeech() async {
-    if (!_speechEnabled) {
-      _speechEnabled = await _speechToText.initialize();
+    _speechToText = stt.SpeechToText();
+    if (!_isListening) {
+      bool _speechEnabled = await _speechToText.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+
+      if (_speechEnabled) {
+        setState(() {
+          _isListening = true;
+        });
+        _speechToText.listen(
+          onResult: (val) => setState(() {
+            _lastWords = val.recognizedWords;
+          }),
+        );
+      } else {
+        setState(() {
+          _isListening = false;
+        });
+        _speechToText.stop();
+        print('Speech not available');
+      }
       setState(() {});
     }
   }
@@ -55,7 +76,7 @@ class _VoiceSearchState extends State<VoiceSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speech Demo'),
+        title: Text('Voice Search'),
       ),
       body: Center(
         child: Column(
@@ -63,7 +84,7 @@ class _VoiceSearchState extends State<VoiceSearch> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(16),
-              child: Text(
+              child: const Text(
                 'Recognized words:',
                 style: TextStyle(fontSize: 20.0),
               ),
@@ -79,7 +100,7 @@ class _VoiceSearchState extends State<VoiceSearch> {
                       // how to start it, otherwise indicate that speech
                       // recognition is not yet ready or not supported on
                       // the target device
-                      : _speechEnabled
+                      : _isListening
                           ? 'Tap the microphone to start listening...'
                           : 'Speech not available',
                 ),

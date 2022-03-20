@@ -31,7 +31,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: "Search",
+                        labelText: "Search Books",
                         prefixIcon: Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
