@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bookstoreapp/models/books.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/signin.dart';
@@ -23,21 +24,26 @@ class _CartListState extends State<CartList> {
   void initState() {
     super.initState();
     getUserId();
-    getFavBooks();
+    getCartBooks();
   }
 
+//get userId
   getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId = prefs.getString("user_id")!;
     print(userId);
   }
 
-  getFavBooks() async {
+//fetch books from firebase
+  getCartBooks() async {
+    EasyLoading.show(status: 'loading...');
+
     await users.doc(userId).collection("cart").get().then((value) {
       setState(() {
         bookslist = value.docs.map((doc) => Book.fromDocument(doc)).toList();
       });
     });
+    EasyLoading.dismiss();
 
     print(bookslist);
   }

@@ -7,6 +7,7 @@ import 'package:bookstoreapp/components/categories.dart';
 import 'package:bookstoreapp/components/homepage.dart';
 import 'package:bookstoreapp/components/wishlist.dart';
 import 'package:bookstoreapp/models/books.dart';
+import 'package:bookstoreapp/screens/cart_screen.dart';
 import 'package:bookstoreapp/screens/voice_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -40,10 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const BookStores(),
-    const Text(
-      'Search',
-      style: optionStyle,
-    ),
+    const AdvancedSearch(),
     const CategoriesScreen(),
     const WishList(),
   ];
@@ -58,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // has its position and size after it's built.
     final RenderBox box = context.findRenderObject() as RenderBox;
 
-    await Share.share("check bookstore app https://example.com",
+    await Share.share("check bookstore app https://bookstore.com",
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -144,13 +142,24 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              title: const Text('Your WishList'),
+              title: const Text('My WishList'),
               leading: Icon(Icons.favorite_border_outlined),
               onTap: () {
                 // Update the state of the app.
                 // ...
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return const SafeArea(child: WishList());
+                }));
+              },
+            ),
+            ListTile(
+              title: const Text('My Cart'),
+              leading: Icon(Icons.shopping_cart_outlined),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: CartList());
                 }));
               },
             ),
