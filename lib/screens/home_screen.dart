@@ -1,4 +1,9 @@
-import 'package:bookstoreapp/components/horizontal_list.dart';
+// ignore_for_file: prefer_final_fields
+
+import 'package:bookstoreapp/components/book_stores.dart';
+import 'package:bookstoreapp/components/books_detail.dart';
+import 'package:bookstoreapp/components/homepage.dart';
+import 'package:bookstoreapp/models/books.dart';
 import 'package:bookstoreapp/screens/voice_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -29,21 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HorizontalListView(),
-    Text(
-      'Book Stores',
-      style: optionStyle,
-    ),
-    Text(
+  static List<Widget> _widgetOptions = <Widget>[
+    const HomePage(),
+    const BookStores(),
+    const Text(
       'Search',
       style: optionStyle,
     ),
-    Text(
+    const Text(
       'Categories',
       style: optionStyle,
     ),
-    Text(
+    const Text(
       'Favorites',
       style: optionStyle,
     ),

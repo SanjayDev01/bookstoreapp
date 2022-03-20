@@ -61,7 +61,7 @@ BookList booklist = BookList(books: [
       age: "ABOVE 18",
       author: "Steven King",
       authorImg: "https://images.gr-assets.com/authors/1362814142p5/3389.jpg",
-      franchise: true,
+      franchise: false,
       genre: "Crime Fiction",
       lanugage: "ENGLISH",
       price: 10.87,
@@ -79,7 +79,7 @@ BookList booklist = BookList(books: [
       author: "Mario Puzo",
       authorImg:
           "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Mario_Puzo.jpg/220px-Mario_Puzo.jpg",
-      franchise: true,
+      franchise: false,
       genre: "Crime Fiction",
       lanugage: "ENGLISH",
       price: 13.60,

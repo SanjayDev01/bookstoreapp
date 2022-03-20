@@ -1,7 +1,7 @@
 import 'package:bookstoreapp/models/books.dart';
 import 'package:flutter/material.dart';
 
-class ShowCase extends StatelessWidget {
+class ShowCase extends StatefulWidget {
   const ShowCase({
     required this.wideImage,
     required this.bookObject,
@@ -10,6 +10,11 @@ class ShowCase extends StatelessWidget {
   final String wideImage;
   final Book bookObject;
 
+  @override
+  State<ShowCase> createState() => _ShowCaseState();
+}
+
+class _ShowCaseState extends State<ShowCase> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +32,7 @@ class ShowCase extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(wideImage, fit: BoxFit.cover),
+              child: Image.network(widget.wideImage, fit: BoxFit.cover),
             ),
           ),
           const SizedBox(
