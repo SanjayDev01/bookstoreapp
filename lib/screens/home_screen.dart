@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:bookstoreapp/components/advanced_search.dart';
 import 'package:bookstoreapp/components/book_stores.dart';
 import 'package:bookstoreapp/components/books_detail.dart';
+import 'package:bookstoreapp/components/categories.dart';
 import 'package:bookstoreapp/components/homepage.dart';
 import 'package:bookstoreapp/components/wishlist.dart';
 import 'package:bookstoreapp/models/books.dart';
@@ -42,10 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Search',
       style: optionStyle,
     ),
-    const Text(
-      'Categories',
-      style: optionStyle,
-    ),
+    const CategoriesScreen(),
     const WishList(),
   ];
 
@@ -86,7 +85,78 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Book Store',
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
+            ),
+            ListTile(
+              title: const Text('Home'),
+              leading: Icon(Icons.home_outlined),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: HomePage());
+                }));
+              },
+            ),
+            ListTile(
+              title: const Text('Bookstores'),
+              leading: Icon(Icons.bookmarks_outlined),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: BookStores());
+                }));
+              },
+            ),
+            ListTile(
+              title: const Text('Full list of categories'),
+              leading: Icon(Icons.search),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: CategoriesScreen());
+                }));
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Advanced Search'),
+              leading: Icon(Icons.menu),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: AdvancedSearch());
+                }));
+              },
+            ),
+            ListTile(
+              title: const Text('Your WishList'),
+              leading: Icon(Icons.favorite_border_outlined),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SafeArea(child: WishList());
+                }));
+              },
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Colors.white,
       body: Center(
         child: _widgetOptions.elementAt(_selectedItemPosition),
